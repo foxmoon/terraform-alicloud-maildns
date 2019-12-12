@@ -1,20 +1,16 @@
-Alicloud Domain Name System (DNS) Terraform Module
-terraform-alicloud-dns
+Alicloud Mail  Auto Add Domain DNS Record For Mail Post Service Terraform Module
+terraform-alicloud-maildns
 =============================================
 
-Terraform module which creates DNS resources on Alibaba Cloud.
+Terraform module which creates DNS resources for email service on Alibaba Cloud.
 
 These types of resources are supported:
 
-* [DNS Group](https://www.terraform.io/docs/providers/alicloud/d/dns_groups.html)
-* [DNS Domains](https://www.terraform.io/docs/providers/alicloud/d/dns_domains.html)
-* [DNS Records](https://www.terraform.io/docs/providers/alicloud/d/dns_records.html)
+* [MX  Records]
+* [CNAME Records]
 
 Root module calls these modules which can also be used separately to create independent resources:
 
-* [group](https://github.com/terraform-alicloud-modules/terraform-alicloud-dns/tree/master/modules/group) - creates groups
-* [domain](https://github.com/terraform-alicloud-modules/terraform-alicloud-dns/tree/master/modules/domain) - creates domains
-* [record](https://github.com/terraform-alicloud-modules/terraform-alicloud-dns/tree/master/modules/record) - creates records
 
 
 `NOTE`:
@@ -23,61 +19,132 @@ Root module calls these modules which can also be used separately to create inde
 Usage
 -----
 You can use this in your terraform template with the following steps.
+1. input teraform init 
 
-1. Adding a module resource to your template, e.g. main.tf
+2. input terraform apply
+var.domain
+  DNS alicloud mail domain name
 
-
-        module "dns" {
-            source                      = "terraform-alicloud-modules/dns/alicloud"
-            domain_name                 = "aliyun.com"
-            record_list                 = [
-                {
-                    name                = "www"
-                    type                = "A"
-                    ttl                 = 600
-                    value               = "223.5.5.5"
-                    priority            = 1
-                },
-                {
-                    name                = "www"
-                    type                = "A"
-                    ttl                 = 600
-                    value               = "223.5.5.5"
-                    priority            = 1
-                }
-            ]
-            record_count                = 2
-        }
-
-2. Setting values for the following variables through environment variables:
-
-    - ALICLOUD_ACCESS_KEY
-    - ALICLOUD_SECRET_KEY
-    - ALICLOUD_REGION
-
-## Inputs
-
-| Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| domain_name   | domain name which you want to add                                   | list   | -  | yes |
-| group_name    | group name which you want to add and set 'domain'`s group to it     | string | -  | no  |
-| ds_group_name | data source group name ,if you want use extend group ,set this key  | list   | -  | no  |
-| record_list   | record list                                                         | list   | -  | no  |
-| record_count  | record list length                                                  | string | -  | no  |
+  Enter a value: 90hou.store
 
 
-## Outputs
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
 
-| Name | Description |
-|------|-------------|
-| this_group_id    | the id of group       |
-| this_domain_name | domain name           |
-| this_records     | record info list      |
+Terraform will perform the following actions:
 
+  # alicloud_dns_record.record will be created
+  + resource "alicloud_dns_record" "record" {
+      + host_record = "@"
+      + id          = (known after apply)
+      + locked      = (known after apply)
+      + name        = "90hou.store"
+      + priority    = 3
+      + routing     = "default"
+      + status      = (known after apply)
+      + ttl         = 600
+      + type        = "MX"
+      + value       = "mx1.qiye.aliyun.com"
+    }
 
+  # alicloud_dns_record.record2 will be created
+  + resource "alicloud_dns_record" "record2" {
+      + host_record = "@"
+      + id          = (known after apply)
+      + locked      = (known after apply)
+      + name        = "90hou.store"
+      + priority    = 3
+      + routing     = "default"
+      + status      = (known after apply)
+      + ttl         = 600
+      + type        = "MX"
+      + value       = "mx2.qiye.aliyun.com"
+    }
+
+  # alicloud_dns_record.record3 will be created
+  + resource "alicloud_dns_record" "record3" {
+      + host_record = "@"
+      + id          = (known after apply)
+      + locked      = (known after apply)
+      + name        = "90hou.store"
+      + priority    = 3
+      + routing     = "default"
+      + status      = (known after apply)
+      + ttl         = 600
+      + type        = "MX"
+      + value       = "mx3.qiye.aliyun.com"
+    }
+
+  # alicloud_dns_record.record5 will be created
+  + resource "alicloud_dns_record" "record5" {
+      + host_record = "imap"
+      + id          = (known after apply)
+      + locked      = (known after apply)
+      + name        = "90hou.store"
+      + routing     = "default"
+      + status      = (known after apply)
+      + ttl         = 600
+      + type        = "CNAME"
+      + value       = "imap.qiye.aliyun.com"
+    }
+
+  # alicloud_dns_record.record6 will be created
+  + resource "alicloud_dns_record" "record6" {
+      + host_record = "pop3"
+      + id          = (known after apply)
+      + locked      = (known after apply)
+      + name        = "90hou.store"
+      + routing     = "default"
+      + status      = (known after apply)
+      + ttl         = 600
+      + type        = "CNAME"
+      + value       = "pop.qiye.aliyun.com"
+    }
+
+  # alicloud_dns_record.record7 will be created
+  + resource "alicloud_dns_record" "record7" {
+      + host_record = "smtp"
+      + id          = (known after apply)
+      + locked      = (known after apply)
+      + name        = "90hou.store"
+      + routing     = "default"
+      + status      = (known after apply)
+      + ttl         = 600
+      + type        = "CNAME"
+      + value       = "smtp.qiye.aliyun.com"
+    }
+
+  # alicloud_dns_record.record8 will be created
+  + resource "alicloud_dns_record" "record8" {
+      + host_record = "mail"
+      + id          = (known after apply)
+      + locked      = (known after apply)
+      + name        = "90hou.store"
+      + routing     = "default"
+      + status      = (known after apply)
+      + ttl         = 600
+      + type        = "CNAME"
+      + value       = "qiye.aliyun.com"
+    }
+
+  # alicloud_dns_record.record9 will be created
+  + resource "alicloud_dns_record" "record9" {
+      + host_record = "@"
+      + id          = (known after apply)
+      + locked      = (known after apply)
+      + name        = "90hou.store"
+      + routing     = "default"
+      + status      = (known after apply)
+      + ttl         = 600
+      + type        = "TXT"
+      + value       = "v=spf1 include:spf1.alibaba.mail.aliyun.com -all"
+    }
+
+Plan: 8 to add, 0 to change, 0 to destroy.
 Authors
 -------
-Created and maintained by Zeng Yichen(@microdustor easedust@aliyun.com)
+Created and maintained by Bright(liaomk@gmail.com)
 
 Reference
 ---------
